@@ -16,6 +16,9 @@ public class MainActivity_A1_MT18144 extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        String message = "State of activity " + this.getClass().getSimpleName() + " Changed to created";
+        Toast.makeText(this, message , Toast.LENGTH_SHORT).show();
+        Log.d(TAG,message) ;
         setContentView(R.layout.activity_main__a1__mt18144);
         Button b = (Button)findViewById(R.id.buttonSubmit);
         Button clear = (Button)findViewById(R.id.buttonClear);
@@ -78,7 +81,7 @@ public class MainActivity_A1_MT18144 extends AppCompatActivity {
     }
     protected void onResume(){
         super.onResume();
-        String message = "State of activity " + this.getClass().getSimpleName() + " Changed from created to resumed";
+        String message = "State of activity " + this.getClass().getSimpleName() + " Changed from paused to resumed";
         Toast.makeText(this, message , Toast.LENGTH_SHORT).show();
         Log.d(TAG,message) ;
     }
@@ -90,13 +93,19 @@ public class MainActivity_A1_MT18144 extends AppCompatActivity {
     }
     protected void onStop(){
         super.onStop();
-        String message = "State of activity " + this.getClass().getSimpleName() + " Changed from paused to stopped";
+        String message = "State of activity Changed from paused to stopped";
         Toast.makeText(this, message , Toast.LENGTH_SHORT).show();
         Log.d(TAG,message) ;
     }
+
+    @Override
+    public boolean isFinishing() {
+        return super.isFinishing();
+    }
+
     protected void onDestroy(){
         super.onDestroy();
-        String message = "State of activity " + this.getClass().getSimpleName() + " Changed from stopped to destroyed";
+        String message = "State of activity Changed from stopped to destroyed";
         Toast.makeText(this, message , Toast.LENGTH_SHORT).show();
         Log.d(TAG,message) ;
     }

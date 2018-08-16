@@ -30,16 +30,29 @@ public class MainActivity_A1_MT18144 extends AppCompatActivity {
 
         b.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
+                String name, branch, rollNumber, course1, course2, course3, course4;
+                name = editTextName.getText().toString();
+                branch = editTextBranch.getText().toString();
+                course1 = editTextcourse1.getText().toString();
+                course2 = editTextcourse2.getText().toString();
+                course3 = editTextcourse3.getText().toString();
+                course4 = editTextcourse4.getText().toString();
+                rollNumber = editTextRollNumber.getText().toString();
+                if(name.trim().length() == 0  || branch.trim().length() == 0 || course1.trim().length() == 0 || course2.trim().length() == 0 || course3.trim().length() == 0 || course4.trim().length() == 0 || rollNumber.trim().length() == 0){
+                    String errormsg = "Please Enter All Details ";
+                    Toast.makeText(getApplicationContext(), errormsg , Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 Log.d(TAG,"Submit Button is clicked");
                 //Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.example.com"));
                 Intent intent = new Intent(v.getContext(), SecondActivity_A1_MT18144.class);
-                intent.putExtra("name", editTextName.getText().toString());
-                intent.putExtra("branch", editTextBranch.getText().toString());
-                intent.putExtra("course1", editTextcourse1.getText().toString());
-                intent.putExtra("course2", editTextcourse2.getText().toString());
-                intent.putExtra("course3", editTextcourse3.getText().toString());
-                intent.putExtra("course4", editTextcourse4.getText().toString());
-                intent.putExtra("roll_number", editTextRollNumber.getText().toString());
+                intent.putExtra("name", name);
+                intent.putExtra("branch",branch);
+                intent.putExtra("course1", course1);
+                intent.putExtra("course2", course2);
+                intent.putExtra("course3", course3);
+                intent.putExtra("course4", course4);
+                intent.putExtra("roll_number", rollNumber);
                 startActivity(intent);
             }
         });

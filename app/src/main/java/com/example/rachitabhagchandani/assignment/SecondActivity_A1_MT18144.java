@@ -3,6 +3,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Gravity;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,41 +31,51 @@ public class SecondActivity_A1_MT18144 extends AppCompatActivity {
             textViewBranch.setText(branch);
 
             textViewCourse = (TextView) findViewById(R.id.textViewCourses);
-            String course =(String) bundle.get("course1");
-            course = course + " ," + (String) bundle.get("course2");
-            course = course + " ," + (String) bundle.get("course3");
-            course = course + " ," + (String) bundle.get("course4");
+            String course ="1. " + (String) bundle.get("course1") + "\n";
+            course = course + "2. " + (String) bundle.get("course2") + "\n";
+            course = course + "3. " + (String) bundle.get("course3") + "\n";
+            course = course + "4. " + (String) bundle.get("course4");
             textViewCourse.setText(course);
         }
     }
     protected void onStart(){
         super.onStart();
         String message = "State of activity " + this.getClass().getSimpleName() + " Changed from created to started";
-        Toast.makeText(this, message , Toast.LENGTH_SHORT).show();
+        Toast toast = Toast.makeText(this, message , Toast.LENGTH_SHORT);
+        toast.setGravity(Gravity.CENTER, 50, 0);
+        toast.show();
         Log.d(TAG,message) ;
     }
     protected void onResume(){
         super.onResume();
         String message = "State of activity " + this.getClass().getSimpleName() + " Changed from paused to resumed";
-        Toast.makeText(this, message , Toast.LENGTH_SHORT).show();
+        Toast toast = Toast.makeText(this, message , Toast.LENGTH_SHORT);
+        toast.setGravity(Gravity.CENTER, 50, 0);
+        toast.show();
         Log.d(TAG,message) ;
     }
     protected void onPause(){
         super.onPause();
         String message = "State of activity " + this.getClass().getSimpleName() + " Changed from resumed to paused";
-        Toast.makeText(this, message , Toast.LENGTH_SHORT).show();
+        Toast toast = Toast.makeText(this, message , Toast.LENGTH_SHORT);
+        toast.setGravity(Gravity.CENTER, 50, 0);
+        toast.show();
         Log.d(TAG,message) ;
     }
     protected void onStop(){
         super.onStop();
         String message = "State of activity " + this.getClass().getSimpleName() + " Changed from paused to stopped";
-        Toast.makeText(this, message , Toast.LENGTH_SHORT).show();
+        Toast toast = Toast.makeText(this, message , Toast.LENGTH_SHORT);
+        toast.setGravity(Gravity.CENTER, 50, 0);
+        toast.show();
         Log.d(TAG,message) ;
     }
     protected void onDestroy(){
         super.onDestroy();
         String message = "State of activity " + this.getClass().getSimpleName() + " Changed from stopped to destroyed";
-        Toast.makeText(this, message , Toast.LENGTH_SHORT).show();
+        Toast toast = Toast.makeText(this, message , Toast.LENGTH_SHORT);
+        toast.setGravity(Gravity.CENTER, 50, 0);
+        toast.show();
         Log.d(TAG,message) ;
     }
 }

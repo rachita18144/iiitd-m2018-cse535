@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -93,19 +94,14 @@ public class MainActivity_A1_MT18144 extends AppCompatActivity {
     }
     protected void onStop(){
         super.onStop();
-        String message = "State of activity Changed from paused to stopped";
+        String message = "State of first activity Changed from paused to stopped";
         Toast.makeText(this, message , Toast.LENGTH_SHORT).show();
         Log.d(TAG,message) ;
     }
 
-    @Override
-    public boolean isFinishing() {
-        return super.isFinishing();
-    }
-
     protected void onDestroy(){
         super.onDestroy();
-        String message = "State of activity Changed from stopped to destroyed";
+        String message = "State of first activity Changed from stopped to destroyed";
         Toast.makeText(this, message , Toast.LENGTH_SHORT).show();
         Log.d(TAG,message) ;
     }

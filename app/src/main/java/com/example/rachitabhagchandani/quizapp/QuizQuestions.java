@@ -17,7 +17,7 @@ public class QuizQuestions {
         databaseHelper.insertData(new Question("Magnetic Tape used random access method.","false"));
         databaseHelper.insertData(new Question("Twitter is an online social networking and blogging service.","true"));
         databaseHelper.insertData(new Question("GNU / Linux is a open source operating system..","true"));
-        databaseHelper.insertData(new Question("Dot-matrix, Deskjet, Inkjet and Laser are all types of Printers.","false"));
+        databaseHelper.insertData(new Question("Dot-matrix Deskjet Inkjet and Laser are all types of Printers.","false"));
         databaseHelper.insertData(new Question("Worms and trojan horses are easily detected and eliminated by antivirus software.","true"));
         databaseHelper.insertData(new Question("Whaling / Whaling attack is a kind of phishing attacks that target senior executives and other high profile to access valuable information.","true"));
         databaseHelper.insertData(new Question("Freeware is software that is available for use at no monetary cost.","false"));
@@ -28,7 +28,7 @@ public class QuizQuestions {
         databaseHelper.insertData(new Question("Magnetic Tape used random access method.","false"));
         databaseHelper.insertData(new Question("Twitter is an online social networking and blogging service.","true"));
         databaseHelper.insertData(new Question("GNU / Linux is a open source operating system..","true"));
-        databaseHelper.insertData(new Question("Dot-matrix, Deskjet, Inkjet and Laser are all types of Printers.","false"));
+        databaseHelper.insertData(new Question("Dot-matrix Deskjet Inkjet and Laser are all types of Printers.","false"));
         databaseHelper.insertData(new Question("Worms and trojan horses are easily detected and eliminated by antivirus software.","true"));
         databaseHelper.insertData(new Question("Whaling / Whaling attack is a kind of phishing attacks that target senior executives and other high profile to access valuable information.","true"));
         databaseHelper.insertData(new Question("Freeware is software that is available for use at no monetary cost.","false"));
@@ -38,7 +38,7 @@ public class QuizQuestions {
         databaseHelper.insertData(new Question("Magnetic Tape used random access method.","false"));
         databaseHelper.insertData(new Question("Twitter is an online social networking and blogging service.","true"));
         databaseHelper.insertData(new Question("GNU / Linux is a open source operating system..","true"));
-        databaseHelper.insertData(new Question("Dot-matrix, Deskjet, Inkjet and Laser are all types of Printers.","false"));
+        databaseHelper.insertData(new Question("Dot-matrix Deskjet Inkjet and Laser are all types of Printers.","false"));
         databaseHelper.insertData(new Question("Worms and trojan horses are easily detected and eliminated by antivirus software.","true"));
         databaseHelper.insertData(new Question("Whaling / Whaling attack is a kind of phishing attacks that target senior executives and other high profile to access valuable information.","true"));
         databaseHelper.insertData(new Question("Freeware is software that is available for use at no monetary cost.","false"));

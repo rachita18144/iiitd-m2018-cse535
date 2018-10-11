@@ -1,5 +1,6 @@
 package com.example.rachitabhagchandani.quizapp;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -15,6 +16,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.Toast;
 import java.io.File;
@@ -29,7 +31,7 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class MainActivity extends AppCompatActivity {
-    String answer;
+    String answer = "";
     int id;
 
     RelativeLayoutFragment fragment;
@@ -80,11 +82,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void saveButtonClick(int id) {
+        if(answer.equals("")){
+            Toast.makeText(this, "Please select one option", Toast.LENGTH_LONG).show();
+            return;
+        }
         Bundle args = new Bundle();
         args.putString("answer", answer);
         args.putInt("id", id);
         fragment.putArguments(args);
         Toast.makeText(this, "Your Answer Has been saved", Toast.LENGTH_LONG).show();
+        answer = "";
     }
 
     public String createCSVOfDb() {
@@ -105,6 +112,8 @@ public class MainActivity extends AppCompatActivity {
             Cursor curCSV = db.rawQuery("SELECT * FROM quiz_details", null);
             FileOutputStream fos = new FileOutputStream(file);
             int next = -1;
+            String first = "id" + "," + "question" + "," + "answer" + "," + "saved_answer" + "\n";
+            fos.write(first.getBytes());
             while (curCSV.moveToNext()) {
                 String value = curCSV.getString(0) + "," + curCSV.getString(1) + "," + curCSV.getString(2) + "," + curCSV.getString(3) + "\n";
                 fos.write(value.getBytes());
@@ -117,7 +126,9 @@ public class MainActivity extends AppCompatActivity {
         return "newcsv.csv";
     }
 
-    private class DownloadFilesTask extends AsyncTask<Void, Void, Void> {
+    private class DownloadFilesTask extends AsyncTask<Void, Integer, Void> {
+        ProgressDialog progressBar;
+        boolean status = false;
 
         public DownloadFilesTask() {
             super();
@@ -126,7 +137,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             Handler handler = new Handler(getMainLooper());
-            boolean status = checkNetworkConnectivity();
+            status = checkNetworkConnectivity();
             if(status){
                 handler.post(new Runnable() {
                     @Override
@@ -142,11 +153,25 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
             }
+            if(status) {
+                //Progress bar code
+                progressBar = new ProgressDialog(MainActivity.this);
+                progressBar.setMessage("Uploading file to server ...");
+                progressBar.setProgress(0);
+                progressBar.setMax(100);
+                progressBar.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+                progressBar.show();
+            }
         }
 
         @Override
-        protected void onProgressUpdate(Void... values) {
-            super.onProgressUpdate(values);
+        protected void onProgressUpdate(Integer... values) {
+            if(status) {
+                super.onProgressUpdate(values);
+                progressBar.setProgress(values[0]);
+            }else{
+                return;
+            }
         }
 
         @Override
@@ -158,18 +183,39 @@ public class MainActivity extends AppCompatActivity {
         protected Void doInBackground(Void... voids) {
             final String yourFilePath = Environment.getExternalStorageDirectory() + "/" + "newcsv.csv";
             File uploadFile1 = new File(yourFilePath);
-            sendRequest(uploadFile1);
+            long fileSize = uploadFile1.length();
+            if(status) {
+                try {
+                    Thread.sleep(1000);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+                for (int count = 0; count <= fileSize; count++) {
+                    publishProgress(count);
+                }
+                boolean val = sendRequest(uploadFile1);
+            }
             return null;
         }
 
-        protected void sendRequest(File file) {
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            if(status){
+                progressBar.dismiss();
+            }else{
+                return;
+            }
+            super.onPostExecute(aVoid);
+        }
+
+        protected boolean sendRequest(File file) {
             OkHttpClient client = new OkHttpClient();
             RequestBody body = new MultipartBody.Builder().setType(MultipartBody.FORM)
                     .addFormDataPart("Data", "Quiz Data")
                     .addFormDataPart("file", file.getName(), RequestBody.create(MediaType.parse("text/csv"), file))
                     .build();
             Request request = new Request.Builder()
-                    .url("http://192.168.50.91:8000/signup")
+                    .url("http://192.168.50.91:8080/signup")
                     .post(body)
                     .build();
             try{
@@ -178,6 +224,7 @@ public class MainActivity extends AppCompatActivity {
             } catch (Exception e){
                 e.printStackTrace();
             }
+            return true;
         }
     }
 

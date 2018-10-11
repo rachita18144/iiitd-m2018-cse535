@@ -27,7 +27,7 @@ public class QuizFragment extends Fragment {
         String dataFromActivity = getArguments().getString("question");
         id = getArguments().getInt("id");
         TextView t = (TextView) getView().findViewById(R.id.quiz_fragment_text_view);
-        t.setText(dataFromActivity);
+        t.setText(Integer.toString(id) + ". " + dataFromActivity);
         Button submitButton = (Button) view.findViewById(R.id.submit_button);
         submitButton.setOnClickListener(new View.OnClickListener()
         {
